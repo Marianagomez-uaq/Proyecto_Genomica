@@ -33,8 +33,12 @@ Los análisis serán realizados utilizando paquetes de R (R Core Team, 2025):
 * networkD3: Visualización de la red filtrada (solo si la máquina lo permite)
 
 ## Datos a utilizar
-
-
+Los datos a utilizar se obtendrán del artículo: 
+* Delgado‐Baquerizo, M. (2022). Simplifying the complexity of the soil microbiome to guide the development of next‐generation SynComs. Journal Of Sustainable Agriculture And Environment, 1(1), 9-15. https://doi.org/10.1002/sae2.12012
+Los datos de secuenciación de amplicones bacterianos se obtendrán de:
+* https://figshare.com/s/82a2d3f5d38ace925492
+Los datos de secuenciación de amplicones fúngicos se obtendrán de: 
+* https://figshare.com/s/9772d31625426d907782  
 
 ## Bibliografía
 
