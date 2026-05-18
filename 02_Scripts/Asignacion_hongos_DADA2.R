@@ -22,10 +22,6 @@ sample.names_h <- sapply(strsplit(basename(fnFs_h), "_"), `[`, 1) # Toma los nom
 # '[', 1 indica que tome el primer elemento del vector generado (el nombre)
 
 
-
-
-##################### pendiente de correr:
-
 pdf("03_Results/Quality_Forward_Hongo.pdf",width=13,height = 8) # genera un pdf con cuadros de  13x8  de la calidad Phred de las lecturas de los primeros 10 archivos fastq
 plotQualityProfile(fnFs_h[1:10])
 dev.off()
@@ -41,27 +37,33 @@ names(filtFs_h) <- sample.names_h # indica cual es el nombre de la muestra de ca
 names(filtRs_h) <- sample.names_h
 
 
-out_h <- filterAndTrim(fnFs_h, filtFs_h, fnRs_h, filtRs_h, truncLen=c(230,180), #Se seleccionaron los números de truncLen basado en el phred score de los gráficos de calidad
+# Debido a que el marcador fue ITS, no es recomendable usar el argumento truncLen, pero encontré esta información después de haber corrido todo, entonces mantuve el argumento. No se recomienda debido a la variabilidad de la longitud de esta secuencia (DADA2 Pipeline Tutorial (1.16), n.d.).
+out_h <- filterAndTrim(fnFs_h, filtFs_h, fnRs_h, filtRs_h, truncLen=c(235,185), #Se seleccionaron los números de truncLen basado en el phred score de los gráficos de calidad
                        maxN=0, maxEE=c(2,2), truncQ=2, rm.phix=TRUE, # maxN (máximo de bases ambiguas), maxEE (máximo error esperado), truncQ (elimina lecturas con calidad menor a 2), rm.phix (elimina bases parecidas al genoma del fago phiX (control illumina))
                        compress=TRUE, multithread=F)
 
 
 errF_h <- learnErrors(filtFs, multithread=F) # Estima la probabilidad de que haya transiciones de nucleótidos por la secuenciación. Permite diferenciar entre variación biológica y errores de secuenciación (Benjjneb, 2025a).
 saveRDS (errF_h,file="03_Results/errF_hongo.RDS") # Guarda el archivo en un RDS, es como un checkpoint que podemos utilizar sin tener que correr todo de nuevo al clonar el repositorio.
+
 errR_h <- learnErrors(filtRs, multithread=F)
 saveRDS (errR_h,file="03_Results/errR_hongo.RDS")
-
 
 png("03_Results/Errores_Forward_Hongo.png") # genera imagen .png para visualizar si el modelo de error que generó DADA2 se ajusta a los datos de secuenciación (Benjjneb, 2025c).
 plotErrors(errF_h, nominalQ=TRUE) # nominalQ son los scores de calidad
 dev.off()
+
 png("03_Results/Errores_Reverse_Hongo.png")
 plotErrors(errR_h, nominalQ=TRUE)
 dev.off()
 
 
-dadaFs_h <- dada(filtFs_h, err=errF_h, multithread=F) # La función dada hace la "inferencia de muestras", que usa las secuencias filtradas y el modelo de error para generar ASV (amplicon sequence variants), que serán procesadas para poder hacer la asignación taxonómica (Benjjneb, 2025cb
-dadaRs_h <- dada(filtRs_h, err=errR_h, multithread=F) # borrar el otro y dejar este después de correrlo
+##################### pendiente de correr:
+
+
+
+dadaFs_h <- dada(filtFs_h, err=errF_h, multithread=F) # La función dada hace la "inferencia de muestras", que usa las secuencias filtradas y el modelo de error para generar ASV (amplicon sequence variants), que serán procesadas para poder hacer la asignación taxonómica (Benjjneb, 2025b)
+dadaRs_h <- dada(filtRs_h, err=errR_h, multithread=F)
 
 
 mergers_h <- mergePairs(dadaFs_h, filtFs_h, dadaRs_h, filtRs_h, verbose=TRUE) 

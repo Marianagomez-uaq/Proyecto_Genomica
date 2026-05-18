@@ -57,7 +57,7 @@ dev.off()
 
 
 dadaFs_b <- dada(filtFs_b, err=errF_b, multithread=F) # La función dada hace la "inferencia de muestras", que usa las secuencias filtradas y el modelo de error para generar ASV (amplicon sequence variants), que serán procesadas para poder hacer la asignación taxonómica (Benjjneb, 2025cb
-dadaRs_b <- dada(filtRs_b, err=errR_b, multithread=F) # borrar el otro y dejar este después de correrlo
+dadaRs_b <- dada(filtRs_b, err=errR_b, multithread=F) 
 
 
 mergers_b <- mergePairs(dadaFs_b, filtFs_b, dadaRs_b, filtRs_b, verbose=TRUE) 
