@@ -83,11 +83,11 @@ head(track_b)
 
 
 # Asignación utilizando base de datos SILVA (Quast et al., 2013; Yilmaz et al., 2014; Callahan, 2024).
-taxa_b <- assignTaxonomy(seqtab.nochim_b, "01_RawData/silva_nr99_v138.2_toGenus_trainset.fa.gz", multithread=F) # llega a nivel de género
+taxa_b <- assignTaxonomy(seqtab.nochim_b, "C:/Users/anabe/Documents/mariana/genomica/datos_proyecto/Silva/silva_nr99_v138.2_toGenus_trainset.fa.gz", multithread=F) # llega a nivel de género
 saveRDS(taxa_b, file="03_Results/taxa_bacteria.RDS")
+# como los archivos silva son muy pesados, también los trabajé localmente, los links están disponibles para descarga en 01_RawData/datos_secuenciacion
 
-
-taxa_b <- addSpecies(taxa_b, "01_RawData/silva_v138.2_assignSpecies.fa.gz") # llega a nivel de especie
+taxa_b <- addSpecies(taxa_b, "C:/Users/anabe/Documents/mariana/genomica/datos_proyecto/Silva/silva_v138.2_assignSpecies.fa.gz") # llega a nivel de especie
 saveRDS(taxa_b, file="03_Results/taxa_bacteria.RDS")
 
 

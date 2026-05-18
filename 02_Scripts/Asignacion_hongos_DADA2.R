@@ -87,11 +87,11 @@ head(track_h)
 
 
 # Asignación utilizando base de datos SILVA (Quast et al., 2013; Yilmaz et al., 2014; Callahan, 2024).
-taxa_h <- assignTaxonomy(seqtab.nochim_h, "01_RawData/silva_nr99_v138.2_toGenus_trainset.fa.gz", multithread=F) # llega a nivel de género
+taxa_h <- assignTaxonomy(seqtab.nochim_h, "C:/Users/anabe/Documents/mariana/genomica/datos_proyecto/Silva/silva_nr99_v138.2_toGenus_trainset.fa.gz", multithread=F) # llega a nivel de género
 saveRDS(taxa_h, file="03_Results/taxa_hongo.RDS")
 
 
-taxa_h <- addSpecies(taxa_h, "01_RawData/silva_v138.2_assignSpecies.fa.gz") # llega a nivel de especie
+taxa_h <- addSpecies(taxa_h, "C:/Users/anabe/Documents/mariana/genomica/datos_proyecto/Silva/silva_v138.2_assignSpecies.fa.gz") # llega a nivel de especie
 saveRDS(taxa_h, file="03_Results/taxa_hongo.RDS")
 
 
