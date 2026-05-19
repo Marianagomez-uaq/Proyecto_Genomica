@@ -1,0 +1,40 @@
+---
+title: "Proyecto Genómica"
+author: "Mariana Gómez Becerra, Mayra Lizeth Barcenas Guevara"
+date: "2026-05-19"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+![Quality Forward Bacteria] (Quality_Forward_Bacteria.png)
+![Quality Forward Hongo] (Quality_Forward_Hongo.png)
+![Quality Reverse Bacteria] (Quality_Reverse_Bacteria.png)
+![Quality Reverse Hongo] (Quality_Reverse_Hongo.png)
+
+![Errores Forward de Bacterias](03_Results/Errores_Forward_Bacteria.png)
+![Errores Forward de Hongos](03_Results/Errores_Forward_Hongo.png)
+![Errores Reverse de Bacterias](03_Results/Errores_Reverse_Bacteria.png)
+![Errores Reverse de Hongos](03_Results/Errores_Reverse_Hongo.png)
+
+```{r}
+head(taxa.print_bacteria.RDS)
+```
+
+
+## Conclusiones
+
+### Respecto a los resultados #######################
+
+
+
+
+### Extrapolable a otros proyectos
+
+* La literatura en bioinformática carece de metologías bien descritas que permitan una reproducción adecuada de los resultados.
+* Al trabajar con metodologías tardadas, en trabajos colaborativos o que involucren el uso de distintas computadoras para el mismo proyecto, es recomendable generar "checkpoints"durante todo el proceso, para facilitar el trabajo y evitar repetir pasos.
+
+
+

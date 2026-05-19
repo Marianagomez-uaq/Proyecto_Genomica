@@ -57,10 +57,10 @@ dev.off()
 
 
 dadaFs_b <- dada(filtFs_b, err=errF_b, multithread=F) # La función dada hace la "inferencia de muestras", que usa las secuencias filtradas y el modelo de error para generar ASV (amplicon sequence variants), que serán procesadas para poder hacer la asignación taxonómica (Benjjneb, 2025cb
-dadaRs_b <- dada(filtRs_b, err=errR_b, multithread=F) 
+dadaRs_b <- dada(filtRs_b, err=errR_b, multithread=F) # Hace la inferencia con todas las muestras, ya que en ninguno de los archivos que se ponen de argumento hizo un filtrado
 
 
-mergers_b <- mergePairs(dadaFs_b, filtFs_b, dadaRs_b, filtRs_b, verbose=TRUE) 
+mergers_b <- mergePairs(dadaFs_b, filtFs_b, dadaRs_b, filtRs_b, verbose=TRUE) # esta función une cada par de lecturas (forward y reverse), y elimina los que no se unan bien o que tengan muchos mismatches.
 saveRDS(mergers_b, file="03_Results/mergers_bacteria.RDS")
 
 
