@@ -10,7 +10,7 @@ library(ggplot2)
 
 
 # Crear archivo phyloseq
-seqtab_b <- seqtab
+seqtab_b <- seqtab_bacteria
 metadata_b <- read.csv("01_RawData/sample_data_bacteria.csv") # Lee el .csv
 orden <- rownames(seqtab_b) # Esto se lo pedimos a la IA, crea un objeto llamado orden con los nombres de las secuencias
 metadata_b$ID_sequencing <- as.character(metadata_b$ID_sequencing) # Convierte los ID de numéricos a caracter
@@ -21,7 +21,7 @@ metadata_ordenado$ID_sequencing
 ID <- rownames (seqtab_b) # genera un objeto con los ID
 Continent <- metadata_ordenado$Continent # genera un objeto con las localizaciones de cada lectura
 
-samdf_b <- data.frame (ID = ID, Continent = Continent)
+samdf_b <- data.frame (ID = ID, Continent = Continent) #genera un dataframe con los ID y el Continente al que pertenecen
 samdf_b
 
 rownames(samdf_b) <- rownames(seqtab_b) # le pusimos los nombres a las filas
