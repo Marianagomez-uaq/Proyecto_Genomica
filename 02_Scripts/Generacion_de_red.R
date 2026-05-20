@@ -13,12 +13,11 @@ library(ggraph)
 library(ggplot2)
 library(tidygraph)
 
+# El siguiente codigo fue realizado con ayuda de IA (Gemini)
+
 tabla_abundancia <- as.data.frame(t(otu_table(ps_filtered))) ## como ps_filtered esta en formato de phyloseq, lo pase a una matriz para que lo tome como un data.frame y poder hacer la red de correlación
 #la (t) es para transponer las muestras en las columnas porque queremos una matriz de los ASV y los ID para la correlación 
 
-# 1. Calcular la matriz de correlación
-# 2. Enfocar (mantener solo las relaciones)
-# 3. Convertir a un formato de red (nodos y enlaces)
 red_psf <- tabla_abundancia %>% # %>% es un pipe, sirve para encadenar funciones 
   correlate(method = "pearson") %>% # Calcula que tanto se parecen los perfiles de abundancia entre cada par de bacterias. El método de Pearson busca relaciones lineales
   stretch(na.rm = TRUE) %>% # elimina los valores de NA en caso de que tenga 
@@ -39,7 +38,7 @@ ggraph(fg, layout = "graphopt") + # ggraph se utiliza en lugar de ggplot, ya que
   #label = name extrae los nombres 
   #repel = TRUE evita que se encimen las etiquqetas y los nodos 
   #fontface = "bold" pone el texto en negrita 
-  scale_edge_color_gradient2(low = "pink", mid = "purple4", high = "red4", midpoint = 0) +  # Determina la escala de colores (Azul = Positiva, Rojo = Negativa)
+  scale_edge_color_gradient2(low = "pink", mid = "purple4", high = "red4", midpoint = 0) +  # Determina la escala de colores (Azul = Positiva, Rojo = Negativa), como el clustering
   # midpoint = 0 hace que la transicion de los cambios de color sea a partir de 0 
   theme_graph() + # elimina el fondo y lo deja blanco 
   labs(title = "Red de Correlación", # pone el título de la imagen 
