@@ -15,19 +15,18 @@ plot(fg)
 cc <- sort(closeness(fg), decreasing = TRUE)[1:5]
 cc
 
-#betweness centrality 
+#betweenness centrality 
 bc <- betweenness(fg, normalized = TRUE)[1:5]
 bc
 
 # detección de comunidades 
-cfg <- cluster_walktrap(fg, steps = 4)
+cfg <- cluster_walktrap(fg, steps = 4) #determina los "pasos" para que ueda determinar los cluster
 
-plot(cfg, fg, layout = lay,
-     vertex.size = 12, vertex.label.cex = 0.5,
-     main = paste0("Walktrap (steps=4)\nQ = ", round(modularity(fg, membership(cfg)), 4),
-                   " | k = ", length(cfg)))
-
-plot_dendrogram(cfg, mode = "hclust", main = "Dendrograma")
+plot(cfg, fg, layout = layout_with_fr(fg), #el layout = layout_with_fr(fg) es para ubicar los nodos y que no se vayan a encimas uno sobre otro
+     vertex.size = 12, vertex.label.cex = 0.5, # tamaño del nodo y cambia el tamaño de las letras 
+     main = paste0("random Walk (steps=4)\nQ = ", round(modularity(fg, membership(cfg)), 4), #\n sirve como "salto de línea" (como presionar Enter). Hace que el título no quede largo hacia los lados, sino que se divida en dos renglones.
+                   # round(modularity(fg, membership(cfg)), 4) mide que tan buena fue la division de los cluster y redondea los numeros a 4 dígitos
+                   " | k = ", length(cfg))) # numero de cluster por la red 
 
 
 

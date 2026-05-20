@@ -148,7 +148,41 @@ cat("ASVs removidos:", ntaxa(ps) - ntaxa(ps_filtered), "\n")
 
 Con estos datos, procedimos a generar la red y hacer los análisis correspondientes.
 
+Para realizar la red de correlación utilizamos la librería ggrapg, la cual es una libreria que se utiliza para la creacion de redes.
+
+Primero se tuvo que pasar el objeto de tipo phyloseq a una matriz para que ggraph pudira trabajar con el archivo. 
+
+```{r}
+tabla_abundancia <- as.data.frame(t(otu_table(ps_filtered))) 
+
+```
+
+Posteriormente Realizamos se calcularon las correlaciones y se realizó la red.
+
+![red obtenida mediante código, al no haber utilizado las lecturas de los hongos se puede notar la diferencia entre redes] (03_Results/Red.png)
+
+Por último, para los analisis de igraph algunas medidad de centralidad 
+
+```{r}
+hubs <- sort(degree(fg), decreasing = TRUE)[1:5] 
+plot(fg)
+cc <- sort(closeness(fg), decreasing = TRUE)[1:5]
+bc <- betweenness(fg, normalized = TRUE)[1:5]
+```
+
+y por último se realizó la detección de comunidades utilizando el "Random Walk" para observar cómo se agrupan y observar los cluster. 
+
+```{r}
+cfg <- cluster_walktrap(fg, steps = 4)
+```
+
 ## Conclusiones
+
+Los análsis bioinformáticos son de gran utilidad para los trabajos cinetíficos, esto lo podemos observar claramente en este trabajo, puesto que para diversos proyectos se pueden utilizar datos que pueden abarcar gran capacidad de almacenamiento, por lo que al poder manejar las herramientas bioinformáticas se pueden simplificar los datos pudiendo hacer mas manejable el trabajo.
+
+Los análisis de redes nos pueden permitir analizar diferentes aspectos de una comunidad microbiana, en nuestro caso, utilizamos los datos de bacterias y con ello pudimos observar las relaciones que tienen entre si estos organismos y tambien pdimos notar que a su vez se relacionan en diferntes cluster por lo que, el hecho de uqe esten juntos no significa que necesariamente esten en contacto directo unas con otras.
+
+Los análsis bioinformaticos nos ayudan a poder manejar de manera más sencilla los metadatos con gran cantidad de información por lo que este tipo de análisis son vitales en áreas de investigación.
 
 ### Respecto a los resultados
 
