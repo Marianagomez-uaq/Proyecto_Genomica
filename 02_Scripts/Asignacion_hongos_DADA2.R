@@ -43,13 +43,13 @@ out_h <- filterAndTrim(fnFs_h, filtFs_h, fnRs_h, filtRs_h, truncLen=c(235,185), 
                        compress=TRUE, multithread=F)
 
 
-errF_h <- learnErrors(filtFs, multithread=F) # Estima la probabilidad de que haya transiciones de nucleótidos por la secuenciación. Permite diferenciar entre variación biológica y errores de secuenciación (Benjjneb, 2025a).
+errF_h <- learnErrors(filtFs, multithread=F) # Estima la probabilidad de que haya transiciones de nucleótidos por la secuenciación. Permite diferenciar entre variación biológica y errores de secuenciación (Benjjneb, 2025).
 saveRDS (errF_h,file="03_Results/errF_hongo.RDS") # Guarda el archivo en un RDS, es como un checkpoint que podemos utilizar sin tener que correr todo de nuevo al clonar el repositorio.
 
 errR_h <- learnErrors(filtRs, multithread=F)
 saveRDS (errR_h,file="03_Results/errR_hongo.RDS")
 
-png("03_Results/Errores_Forward_Hongo.png") # genera imagen .png para visualizar si el modelo de error que generó DADA2 se ajusta a los datos de secuenciación (Benjjneb, 2025c).
+png("03_Results/Errores_Forward_Hongo.png") # genera imagen .png para visualizar si el modelo de error que generó DADA2 se ajusta a los datos de secuenciación (Benjjneb, 2025).
 plotErrors(errF_h, nominalQ=TRUE) # nominalQ son los scores de calidad
 dev.off()
 
@@ -58,11 +58,11 @@ plotErrors(errR_h, nominalQ=TRUE)
 dev.off()
 
 
-##################### pendiente de correr:
+##################### Nos quedamos hasta antes de este paso:
 
 
 
-dadaFs_h <- dada(filtFs_h, err=errF_h, multithread=F) # La función dada hace la "inferencia de muestras", que usa las secuencias filtradas y el modelo de error para generar ASV (amplicon sequence variants), que serán procesadas para poder hacer la asignación taxonómica (Benjjneb, 2025b)
+dadaFs_h <- dada(filtFs_h, err=errF_h, multithread=F) # La función dada hace la "inferencia de muestras", que usa las secuencias filtradas y el modelo de error para generar ASV (amplicon sequence variants), que serán procesadas para poder hacer la asignación taxonómica (Benjjneb, 2025)
 dadaRs_h <- dada(filtRs_h, err=errR_h, multithread=F)
 
 
@@ -88,12 +88,12 @@ rownames(track_h) <- sample.names_h
 head(track_h)
 
 
-# Asignación utilizando base de datos SILVA (Quast et al., 2013; Yilmaz et al., 2014; Callahan, 2024).
-taxa_h <- assignTaxonomy(seqtab.nochim_h, "C:/Users/anabe/Documents/mariana/genomica/datos_proyecto/Silva/silva_nr99_v138.2_toGenus_trainset.fa.gz", multithread=F) # llega a nivel de género
+# Asignación utilizando base de datos UNITE.
+taxa_h <- assignTaxonomy(seqtab.nochim_h, "C:/Users/anabe/Documents/mariana/genomica/datos_proyecto/UNITE", multithread=F) # llega a nivel de género
 saveRDS(taxa_h, file="03_Results/taxa_hongo.RDS")
 
 
-taxa_h <- addSpecies(taxa_h, "C:/Users/anabe/Documents/mariana/genomica/datos_proyecto/Silva/silva_v138.2_assignSpecies.fa.gz") # llega a nivel de especie
+taxa_h <- addSpecies(taxa_h, "C:/Users/anabe/Documents/mariana/genomica/datos_proyecto/UNITE") # llega a nivel de especie
 saveRDS(taxa_h, file="03_Results/taxa_hongo.RDS")
 
 

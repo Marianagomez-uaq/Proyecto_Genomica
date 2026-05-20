@@ -42,13 +42,13 @@ out_b <- filterAndTrim(fnFs_b, filtFs_b, fnRs_b, filtRs_b, truncLen=c(230,180), 
                      compress=TRUE, multithread=F)
 
 
-errF_b <- learnErrors(filtFs, multithread=F) # Estima la probabilidad de que haya transiciones de nucleótidos por la secuenciación. Permite diferenciar entre variación biológica y errores de secuenciación (Benjjneb, 2025a).
+errF_b <- learnErrors(filtFs, multithread=F) # Estima la probabilidad de que haya transiciones de nucleótidos por la secuenciación. Permite diferenciar entre variación biológica y errores de secuenciación (Benjjneb, 2025).
 saveRDS (errF_b,file="03_Results/errF_bacteria.RDS") # Guarda el archivo en un RDS, es como un checkpoint que podemos utilizar sin tener que correr todo de nuevo al clonar el repositorio.
 errR_b <- learnErrors(filtRs, multithread=F)
 saveRDS (errR_b,file="03_Results/errR_bacteria.RDS")
 
 
-png("03_Results/Errores_Forward_Bacteria.png") # genera imagen .png para visualizar si el modelo de error que generó DADA2 se ajusta a los datos de secuenciación (Benjjneb, 2025c).
+png("03_Results/Errores_Forward_Bacteria.png") # genera imagen .png para visualizar si el modelo de error que generó DADA2 se ajusta a los datos de secuenciación (Benjjneb, 2025).
 plotErrors(errF_b, nominalQ=TRUE) # nominalQ son los scores de calidad
 dev.off()
 png("03_Results/Errores_Reverse_Bacteria.png")
@@ -56,7 +56,7 @@ plotErrors(errR_b, nominalQ=TRUE)
 dev.off()
 
 
-dadaFs_b <- dada(filtFs_b, err=errF_b, multithread=F) # La función dada hace la "inferencia de muestras", que usa las secuencias filtradas y el modelo de error para generar ASV (amplicon sequence variants), que serán procesadas para poder hacer la asignación taxonómica (Benjjneb, 2025cb
+dadaFs_b <- dada(filtFs_b, err=errF_b, multithread=F) # La función dada hace la "inferencia de muestras", que usa las secuencias filtradas y el modelo de error para generar ASV (amplicon sequence variants), que serán procesadas para poder hacer la asignación taxonómica (Benjjneb, 2025)
 dadaRs_b <- dada(filtRs_b, err=errR_b, multithread=F) # Hace la inferencia con todas las muestras, ya que en ninguno de los archivos que se ponen de argumento hizo un filtrado
 
 
@@ -95,50 +95,3 @@ taxa.print_b <- taxa_b # Se hace una copia del archivo taxa, para eliminar los n
 rownames(taxa.print_b) <- NULL # quita rownames
 saveRDS(taxa.print_b, file="03_Results/taxa.print_bacteria.RDS")
 
-
-
-#############PENDIENTE DE CORRER
-
-library(phyloseq)
-library(Biostrings)
-library(ggplot2)
-theme_set(theme_bw())
-
-samples.out <- rownames(seqtab.nochim)
-subject <- sapply(strsplit(samples.out, "D"), `[`, 1)
-gender <- substr(subject,1,1)
-subject <- substr(subject,2,999)
-day <- as.integer(sapply(strsplit(samples.out, "D"), `[`, 2))
-samdf <- data.frame(Subject=subject, Gender=gender, Day=day)
-samdf$When <- "Early"
-samdf$When[samdf$Day>100] <- "Late"
-rownames(samdf) <- samples.out
-
-
-dna <- Biostrings::DNAStringSet(taxa_names(ps))
-names(dna) <- taxa_names(ps)
-ps <- merge_phyloseq(ps, dna)
-taxa_names(ps) <- paste0("ASV", seq(ntaxa(ps)))
-ps
-save(ps,file="03_Results/ps.RDS")
-
-
-jpeg("03_Results/Alfa_Diversity.jpeg",width=610,height = 367)
-plot_richness(ps, x="Day", measures=c("Shannon", "Simpson"), color="When")
-dev.off()
-
-
-# Transform data to proportions as appropriate for Bray-Curtis distances
-ps.prop <- transform_sample_counts(ps, function(otu) otu/sum(otu))
-ord.nmds.bray <- ordinate(ps.prop, method="NMDS", distance="bray")
-jpeg("03_Results/NMDS.jpeg")
-plot_ordination(ps.prop, ord.nmds.bray, color="When", title="Bray NMDS")
-dev.off()
-
-
-top20 <- names(sort(taxa_sums(ps), decreasing=TRUE))[1:20]
-ps.top20 <- transform_sample_counts(ps, function(OTU) OTU/sum(OTU))
-ps.top20 <- prune_taxa(top20, ps.top20)
-jpeg("03_Results/BarPlot.jpeg")
-plot_bar(ps.top20, x="Day", fill="Family") + facet_wrap(~When, scales="free_x")
-dev.off()

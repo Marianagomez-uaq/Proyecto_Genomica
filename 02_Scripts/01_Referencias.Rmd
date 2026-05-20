@@ -9,11 +9,7 @@ output: html_document
 
 Álvarez, R. (2024). *Dada2_Example_2024* [Software]. GitHub. <https://github.com/robertoalvarezm/Dada2_Example_2024>
 
-Benjjneb. (2025a). *Error Rate Learning*. DeepWiki. <https://deepwiki.com/benjjneb/dada2/2.3-error-rate-learning>
-
-Benjjneb. (2025b). *Sample Inference*. DeepWiki. <https://deepwiki.com/benjjneb/dada2/2.4-sample-inference>
-
-Benjjneb. (2025c). *Visualization*. DeepWiki. <https://deepwiki.com/benjjneb/dada2/7-visualization#error-rate-visualization>
+Benjjneb. (2025). *Overview*. DeepWiki. <https://deepwiki.com/benjjneb/dada2/1-overview>
 
 Callahan, B. (2024). Silva taxonomic training data formatted for DADA2 (Silva version 138.2) [Dataset]. In *Zenodo (CERN European Organization for Nuclear Research)*. <https://doi.org/10.5281/zenodo.14169026>
 

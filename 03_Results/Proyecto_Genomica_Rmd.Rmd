@@ -9,32 +9,53 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-![Quality Forward Bacteria] (Quality_Forward_Bacteria.png)
-![Quality Forward Hongo] (Quality_Forward_Hongo.png)
-![Quality Reverse Bacteria] (Quality_Reverse_Bacteria.png)
-![Quality Reverse Hongo] (Quality_Reverse_Hongo.png)
+# Proyecto genómica funcional
 
-![Errores Forward de Bacterias](03_Results/Errores_Forward_Bacteria.png)
-![Errores Forward de Hongos](03_Results/Errores_Forward_Hongo.png)
-![Errores Reverse de Bacterias](03_Results/Errores_Reverse_Bacteria.png)
-![Errores Reverse de Hongos](03_Results/Errores_Reverse_Hongo.png)
+```{r echo=TRUE}
+# Le pedimos a la IA que nos diera código para poner dos imágenes juntas en el mismo renglón
+```
+
+<div style= "display: flex; gap: 10px;">
+<img src="Quality_Forward_Bacteria1.png" width="45%">
+<img src="Quality_Reverse_Bacteria1.png" width="45%">
+</div>
+
+
+<div style= "display: flex; gap: 10px;">
+<img src="Quality_Forward_Hongo1.png" width="45%">
+<img src="Quality_Reverse_Hongo1.png" width="45%">
+</div>
+
+<div style= "display: flex; gap: 10px;">
+<img src="Errores_Forward_Bacteria.png" width="45%">
+<img src="Errores_Reverse_Bacteria.png" width="45%">
+</div>
+
+<div style= "display: flex; gap: 10px;">
+<img src="Errores_Forward_Hongo.png" width="45%">
+<img src="Errores_Reverse_Hongo.png" width="45%">
+</div>
+
+
+```{r include=FALSE}
+taxa.print_b <- readRDS("taxa.print_bacteria.RDS")
+```
+Revisamos si se logró asignar hasta nivel de especie, y no se pudo
+```{r}
+taxa.print_b[,7]
+```
+Pero varios sí llegaron a nivel de género
 
 ```{r}
-head(taxa.print_bacteria.RDS)
+taxa.print_b[90:100, 1:6]
 ```
 
 
 ## Conclusiones
 
-### Respecto a los resultados #######################
-
-
-
+### Respecto a los resultados
 
 ### Extrapolable a otros proyectos
 
-* La literatura en bioinformática carece de metologías bien descritas que permitan una reproducción adecuada de los resultados.
-* Al trabajar con metodologías tardadas, en trabajos colaborativos o que involucren el uso de distintas computadoras para el mismo proyecto, es recomendable generar "checkpoints"durante todo el proceso, para facilitar el trabajo y evitar repetir pasos.
-
-
-
+-   La literatura en bioinformática carece de metologías bien descritas que permitan una reproducción adecuada de los resultados.
+-   Al trabajar con metodologías tardadas, en trabajos colaborativos o que involucren el uso de distintas computadoras para el mismo proyecto, es recomendable generar "checkpoints"durante todo el proceso, para facilitar el trabajo y evitar repetir pasos.
