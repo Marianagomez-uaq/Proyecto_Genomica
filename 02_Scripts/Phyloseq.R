@@ -95,3 +95,8 @@ cat("ASVs removidos:", ntaxa(ps) - ntaxa(ps_filtered), "\n")
 
 saveRDS (ps_filtered, file="03_Results/ps_filtered.RDS") # después del filtrado nos quedamos con 692 ASV, mientras que el autor original se quedó con 4913
 
+
+genero <- taxa.print_b[,6] # Selecciona solo la columna de genero
+genero <- genero[!is.na(genero)] # Borra todas las NA
+genero <- unique(genero) # Elimina los repetidos
+genero # lista de géneros encontrados
