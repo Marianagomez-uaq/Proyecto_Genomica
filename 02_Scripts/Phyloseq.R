@@ -93,5 +93,5 @@ cat("ASVs originales:", ntaxa(ps), "\n")
 cat("ASVs tras filtrado:", ntaxa(ps_filtered), "\n")
 cat("ASVs removidos:", ntaxa(ps) - ntaxa(ps_filtered), "\n")
 
-saveRDS (ps_filtered, file="03_Results/ps_filtered.RDS")
+saveRDS (ps_filtered, file="03_Results/ps_filtered.RDS") # después del filtrado nos quedamos con 692 ASV, mientras que el autor original se quedó con 4913
 
